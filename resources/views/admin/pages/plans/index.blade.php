@@ -3,7 +3,17 @@
 @section('title', 'Planos')
 
 @section('content_header')
-    <h1>Planos</h1>    
+    <nav class="mb-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Planos</li>
+        </ol>
+    </nav>
+
+    <h1>
+        <i class="far fa-list-alt"></i>
+        Planos
+    </h1>       
 @stop
 
 @section('content')
@@ -12,16 +22,20 @@
            <div class="row">
                <div class="col-6">
                     <div class="form-group">
-                        <form class="form-inline">
+                        <form action="{{ route('plans.search') }}" class="form form-inline" method="POST">
+                            @csrf
                              <div class="form-group">
-                               <input type="text" name="filter" class="form-control" placeholder="Faça sua busca...">
+                               <input type="text" 
+                                      name="filter" 
+                                      class="form-control" 
+                                      placeholder="Faça sua busca...">
                              </div>
-                               <button type="submit" class="btn btn-info ml-2">Buscar</button>
+                               <button type="submit" class="btn btn-info ml-3">Buscar</button>
                         </form>
                     </div>
                </div>
                <div class="col-6">
-                   <a href="{{ route('plans.create')}}" class="btn btn-info float-right">Novo Plano</a>
+                   <a href="{{ route('plans.create') }}" class="btn btn-info float-right">Novo Plano</a>
                </div>               
            </div>            
        </div>
@@ -39,19 +53,23 @@
                     @foreach ($plans as $plan)
                         <tr>
                             <td>{{ $plan->name }}</td>
-                            <td>{{ $plan->price }}</td>
+                            <td>R$ {{ number_format($plan->price,2,",",".") }}</td>
                             <td>{{ date('d/m/Y', strtotime($plan->created_at)) }}</td>
                             <td>
-                                <a href="{{ route('plans.show', ['id' => $plan->id]) }}" class="btn btn-warning btn-sm">Ver</a>
-                                <a href="#" class="btn btn-info btn-sm">Editar</a>
-                                <a href="#" class="btn btn-danger btn-sm">Excluir</a>
+                                <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning btn-sm">Ver</a>
+                                <a href="{{ route('plans.edit', $plan->url)}}" class="btn btn-info btn-sm">Editar</a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="mt-3">
-                {!! $plans->links() !!}
+                @if (isset($filters))
+                    {!! $plans->appends($filters)->links() !!}
+                @else
+                    {!! $plans->links() !!}                    
+                @endif
+                
             </div>           
        </div>
    </div>

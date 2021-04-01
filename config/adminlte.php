@@ -232,19 +232,13 @@ return [
         [
             'text' => 'Planos',
             'url'  => 'admin/plans',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'icon' => 'nav-icon far fa-list-alt'
         ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'nav-icon fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',

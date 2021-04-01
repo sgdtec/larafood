@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Plan;
-use Illuminate\Support\Str;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdatePlan;
 
 class PlanController extends Controller
 {    
@@ -25,16 +25,15 @@ class PlanController extends Controller
         ]);
     }
 
+    //Open form create plans
     public function create() {
         return view('admin.pages.plans.create');
     }
 
-    public function store(Request $request) {
+    //Save plans in BD
+    public function store(StoreUpdatePlan $request) {
 
-        $data = $request->all();
-        $data['url'] = Str::kebab($request->name);
-        
-        $this->model->create($data);
+        $this->model->create($request->all());
 
         return redirect()->route('plans.index');
     }
@@ -62,5 +61,41 @@ class PlanController extends Controller
         $plan->delete();
 
         return redirect()->route('plans.index');        
+    }
+
+    public function edit($url) {
+        $plan = $this->model->where('url', $url)->first();
+
+        if (!$plan) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.plans.edit', [
+            'plan' => $plan
+        ]);        
+    }
+
+    public function update(StoreUpdatePlan $request, $url) {
+
+        $plan = $this->model->where('url', $url)->first();
+
+        if (!$plan) {
+            return redirect()->back();
+        }
+
+        $plan->update($request->all());
+
+        return redirect()->route('plans.index');
+    }
+
+    public function search(Request $request) {
+
+        $filters = $request->except('_token');
+        $plans = $this->model->search($request->filter);
+
+        return view('admin.pages.plans.index', [
+            'plans'   => $plans,
+            'filters' => $filters
+        ]);
     }
 }
