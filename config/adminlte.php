@@ -234,6 +234,16 @@ return [
             'url'  => 'admin/plans',
             'icon' => 'nav-icon far fa-list-alt'
         ],
+        [
+            'text' => 'Perfis',
+            'url'  => 'admin/profiles',
+            'icon' => 'nav-icon fas fa-address-book'
+        ],
+        [
+            'text' => 'Permissões',
+            'url'  => 'admin/permissions',
+            'icon' => 'nav-icon fas fa-lock'
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

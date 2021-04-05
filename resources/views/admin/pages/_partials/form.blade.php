@@ -1,5 +1,5 @@
 @include('admin.includes.alerts')
-
+@csrf
 <div class="form-group">
     <label>Nome do Plano</label>
     <input type="text" 

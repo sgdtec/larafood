@@ -1,18 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Planos')
+@section('title', "Detalhes do plano {$plan->name}")
 
 @section('content_header')
     <nav class="mb-2">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Planos</li>
+            <li class="breadcrumb-item"><a href="{{route('plans.index')}}">Planos</a></li>
+            <li class="breadcrumb-item"><a href="{{route('plans.show', $plan->url)}}">{{ $plan->name }}</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('details.plan.index', $plan->url)}}">Detalhes</a></li>
         </ol>
     </nav>
 
     <h1>
         <i class="far fa-list-alt"></i>
-        Planos
+        Detalhes do Plano
     </h1>       
 @stop
 
@@ -35,30 +37,27 @@
                     </div>
                </div>
                <div class="col-6">
-                   <a href="{{ route('plans.create') }}" class="btn btn-info float-right">Novo Plano</a>
+                   <a href="{{ route('details.plan.create', $plan->url) }}" class="btn btn-info float-right">Novo Detalhe</a>
                </div>               
            </div>            
        </div>
        <div class="card-body">
+            @include('admin.includes.alerts')
+
             <table class="table table-bordered table-striped table-hover table-sm">
                 <thead class="thead-light">
                     <tr>
                         <th>Nome</th>
-                        <th width="100">Preço</th>
-                        <th width="100">Criado</th>
-                        <th width="190">Ações</th>
+                        <th width="170">Ações</th>
                     </tr>                    
                 </thead>
                 <tbody>
-                    @foreach ($plans as $plan)
+                    @foreach ($details as $detail)
                         <tr>
-                            <td>{{ $plan->name }}</td>
-                            <td>R$ {{ number_format($plan->price,2,",",".") }}</td>
-                            <td>{{ date('d/m/Y', strtotime($plan->created_at)) }}</td>
+                            <td>{{ $detail->name }}</td>
                             <td>
-                                <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning btn-sm">Ver</a>
-                                <a href="{{ route('plans.edit', $plan->url)}}" class="btn btn-info btn-sm">Editar</a>
-                                <a href="{{ route('details.plan.index', $plan->url)}}" class="btn btn-secondary btn-sm">Detalhes</a>
+                                <a href="{{ route('details.plan.show', [$plan->url, $detail->id]) }}" class="btn btn-warning btn-sm">Ver</a>
+                                <a href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-info btn-sm">Editar</a>
                             </td>
                         </tr>
                     @endforeach
@@ -66,9 +65,9 @@
             </table>
             <div class="mt-3">
                 @if (isset($filters))
-                    {!! $plans->appends($filters)->links() !!}
+                    {!! $details->appends($filters)->links() !!}
                 @else
-                    {!! $plans->links() !!}                    
+                    {!! $details->links() !!}                    
                 @endif
                 
             </div>           
