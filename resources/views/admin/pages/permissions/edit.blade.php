@@ -11,7 +11,7 @@
         </ol>
     </nav>
     <h1>
-        <i class="far fa-list-alt"></i>
+        <i class="fas fa-lock"></i>
         Altera Permissão
     </h1>    
 @stop
@@ -19,7 +19,8 @@
 @section('content')
    <div class="card">
         <div class="card-body">
-            <form action="{{ route('permissions.store') }}" class="form" method="POST">                
+            <form action="{{ route('permissions.update', $permission->id ) }}" class="form" method="POST">                
+                @method('PUT')
                 @include('admin.pages.permissions._partials.form')
             </form>
         </div>

@@ -48,7 +48,7 @@
                         <th>Nome</th>
                         <th>Descrição</th>
                         <th>Criado</th>
-                        <th width="190">Ações</th>
+                        <th width="140" class="text-center">Ações</th>
                     </tr>                    
                 </thead>
                 <tbody>
@@ -57,9 +57,10 @@
                             <td>{{ $profile->name }}</td>
                             <td>{{ $profile->description }}</td>
                             <td>{{ date('d/m/Y', strtotime($profile->created_at)) }}</td>
-                            <td>
+                            <td class="text-center">
                                 <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-warning btn-sm">Ver</a>
                                 <a href="{{ route('profiles.edit', $profile->id)}}" class="btn btn-info btn-sm">Editar</a>
+                                <a href="{{ route('profiles.permissions', $profile->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-lock"></i></a>
                             </td>
                         </tr>
                     @endforeach

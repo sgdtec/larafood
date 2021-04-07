@@ -18,13 +18,11 @@
 </div>
 <div class="form-group">
     <label>Descrição</label>
-    <textarea cols="30" rows="3" 
-           name="description"
+    <input type="text" 
+           name="description" 
            class="form-control" 
-           placeholder="Descrição do plano..."
-    >
-           {{$plan->description ?? old('description')}}
-    </textarea>
+           placeholder="Descrição sobre o plano..." 
+           value="{{ $plan->description ?? old('description') }}">
 </div>
 <div class="form-group">
     <button type="submit" class="btn btn-info">Enviar</button>

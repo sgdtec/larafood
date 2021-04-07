@@ -11,7 +11,7 @@
         </ol>
     </nav>
     <h1>
-        <i class="far fa-list-alt"></i>
+        <i class="fas fa-lock"></i>
         Detalhes da Permissão
     </h1>    
 @stop

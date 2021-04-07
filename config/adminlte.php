@@ -235,7 +235,7 @@ return [
             'icon' => 'nav-icon far fa-list-alt'
         ],
         [
-            'text' => 'Perfis',
+            'text' => 'Perfil',
             'url'  => 'admin/profiles',
             'icon' => 'nav-icon fas fa-address-book'
         ],

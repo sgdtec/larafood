@@ -50,18 +50,26 @@
                     </tr>                    
                 </thead>
                 <tbody>
-                    @foreach ($plans as $plan)
+                    @if (count($plans) > 0)
+                        @foreach ($plans as $plan)
+                            <tr>
+                                <td>{{ $plan->name }}</td>
+                                <td>R$ {{ number_format($plan->price,2,",",".") }}</td>
+                                <td>{{ date('d/m/Y', strtotime($plan->created_at)) }}</td>
+                                <td>
+                                    <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning btn-sm">Ver</a>
+                                    <a href="{{ route('plans.edit', $plan->url)}}" class="btn btn-info btn-sm">Editar</a>
+                                    <a href="{{ route('details.plan.index', $plan->url)}}" class="btn btn-secondary btn-sm">Detalhes</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else                       
                         <tr>
-                            <td>{{ $plan->name }}</td>
-                            <td>R$ {{ number_format($plan->price,2,",",".") }}</td>
-                            <td>{{ date('d/m/Y', strtotime($plan->created_at)) }}</td>
-                            <td>
-                                <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning btn-sm">Ver</a>
-                                <a href="{{ route('plans.edit', $plan->url)}}" class="btn btn-info btn-sm">Editar</a>
-                                <a href="{{ route('details.plan.index', $plan->url)}}" class="btn btn-secondary btn-sm">Detalhes</a>
+                            <td colspan="5">
+                                <p class="mt-2 text-red">Não existem planos cadastrados.</p>
                             </td>
-                        </tr>
-                    @endforeach
+                        </tr>    
+                    @endif    
                 </tbody>
             </table>
             <div class="mt-3">

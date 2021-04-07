@@ -10,13 +10,11 @@
 </div>
 <div class="form-group">
     <label>Descrição</label>
-    <textarea cols="30" rows="3" 
+    <input type="text"
            name="description"
            class="form-control" 
            placeholder="Descrição do perfil..."
-    >
-           {{$profile->description ?? old('description')}}
-    </textarea>
+           value="{{$profile->description ?? old('description')}}">
 </div>
 <div class="form-group">
     <button type="submit" class="btn btn-info">Enviar</button>

@@ -1,30 +1,31 @@
 @extends('adminlte::page')
 
-@section('title', "Detalhes do plano {$plan->name}")
+@section('title', "Permissões do perfil {$profile->name}")
 
 @section('content_header')
     <nav class="mb-2">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('plans.index')}}">Planos</a></li>
-            <li class="breadcrumb-item"><a href="{{route('plans.show', $plan->url)}}">{{ $plan->name }}</a></li>
-            <li class="breadcrumb-item active"><a href="{{route('details.plan.index', $plan->url)}}">Detalhes</a></li>
+            <li class="breadcrumb-item"><a href="{{route('profiles.index')}}">Perfil</a></li>
+            <li class="breadcrumb-item active">Permissões do Perfil</li>
         </ol>
     </nav>
 
     <h1>
         <i class="far fa-list-alt"></i>
-        Detalhes do Plano
+        Permissões do perfil - <strong>{{ $profile->name}}</strong>
     </h1>       
 @stop
 
 @section('content')
    <div class="card">
        <div class="card-header pb-0">
+           @include('admin.includes.alerts')
+
            <div class="row">
                <div class="col-6">
                     <div class="form-group">
-                        <form action="{{ route('plans.search') }}" class="form form-inline" method="POST">
+                        <form action="{{ route('permissions.search') }}" class="form form-inline" method="POST">
                             @csrf
                              <div class="form-group">
                                <input type="text" 
@@ -37,35 +38,34 @@
                     </div>
                </div>
                <div class="col-6">
-                   <a href="{{ route('details.plan.create', $plan->url) }}" class="btn btn-info float-right">Novo Detalhe</a>
+                   <a href="{{ route('profiles.permissions.available', $profile->id) }}" class="btn btn-info float-right">Nova Permissão</a>
                </div>               
            </div>            
        </div>
        <div class="card-body">
-            @include('admin.includes.alerts')
-
             <table class="table table-bordered table-striped table-hover table-sm">
                 <thead class="thead-light">
                     <tr>
                         <th>Nome</th>
-                        <th width="120" class="text-center">Ações</th>
+                        <th>Descrição</th>
+                        <th width="100" class="text-center">Ações</th>
                     </tr>                    
                 </thead>
                 <tbody>
-                    @if (count($details) > 0)
-                        @foreach ($details as $detail)
+                    @if (count($permissions) > 0)
+                        @foreach ($permissions as $permission)
                             <tr>
-                                <td class="ml-2">{{ $detail->name }}</td>
+                                <td>{{ $permission->name }}</td>
+                                <td>{{ $permission->description }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('details.plan.show', [$plan->url, $detail->id]) }}" class="btn btn-warning btn-sm">Ver</a>
-                                    <a href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-info btn-sm">Editar</a>
+                                    <a href="{{ route('profiles.permissions.detach', [$profile->id, $permission->id]) }}" class="btn btn-secondary btn-sm">Remover</a>
                                 </td>
                             </tr>
                         @endforeach
-                    @else                       
+                    @else
                         <tr>
                             <td colspan="5">
-                                <p class="mt-2 text-red">Não existem detalhes para o plano.</p>
+                                <p class="mt-2 text-red">Nenhuma permissão está liberado para o perfil!</p>
                             </td>
                         </tr>    
                     @endif
@@ -73,9 +73,9 @@
             </table>
             <div class="mt-3">
                 @if (isset($filters))
-                    {!! $details->appends($filters)->links() !!}
+                    {!! $permissions->appends($filters)->links() !!}
                 @else
-                    {!! $details->links() !!}                    
+                    {!! $permissions->links() !!}                    
                 @endif
                 
             </div>           

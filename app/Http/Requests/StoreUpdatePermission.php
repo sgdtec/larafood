@@ -24,8 +24,8 @@ class StoreUpdatePermission extends FormRequest
     public function rules()
     {
         return [
-            'name'        => "required|min:3|max:100|unique:profiles,name,{$this->segment(3)},id",
-            'description' => 'nullable|min:3|max:100',
+            'name' => "required|min:3|max:255|unique:permissions,name,{$this->segment(3)},id",
+            'description' => 'nullable|min:3|max:255',
         ];
     }
 }

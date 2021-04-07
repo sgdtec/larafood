@@ -11,7 +11,7 @@
     </nav>
 
     <h1>
-        <i class="far fa-list-alt"></i>
+        <i class="fas fa-lock"></i>
         Permissões
     </h1>       
 @stop
@@ -47,22 +47,30 @@
                         <th>Nome</th>
                         <th>Descrição</th>
                         <th width="100">Criado</th>
-                        <th width="190">Ações</th>
+                        <th width="150" class="text-center">Ações</th>
                     </tr>                    
                 </thead>
                 <tbody>
-                    @foreach ($permissions as $permission)
+                    @if (count($permissions) > 0)
+                        @foreach ($permissions as $permission)
+                            <tr>
+                                <td>{{ $permission->name }}</td>
+                                <td>{{ $permission->description }}</td>
+                                <td>{{ date('d/m/Y', strtotime($permission->created_at)) }}</td>
+                                <td class='text-center'>
+                                    <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning btn-sm">Ver</a>
+                                    <a href="{{ route('permissions.edit', $permission->id)}}" class="btn btn-info btn-sm">Editar</a>
+                                    <a href="{{ route('permissions.profiles', $permission->id)}}" class="btn btn-info btn-sm"><i class="fas fa-address-book"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else                       
                         <tr>
-                            <td>{{ $permission->name }}</td>
-                            <td>{{ $permission->description }}</td>
-                            <td>{{ date('d/m/Y', strtotime($permission->created_at)) }}</td>
-                            <td>
-                                <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning btn-sm">Ver</a>
-                                <a href="{{ route('permissions.edit', $permission->id)}}" class="btn btn-info btn-sm">Editar</a>
-                                {{-- <a href="{{ route('details.permission.index', $permission->id)}}" class="btn btn-secondary btn-sm">Detalhes</a> --}}
+                            <td colspan="5">
+                                <p class="mt-2 text-red">Não existem permissões cadastradas.</p>
                             </td>
-                        </tr>
-                    @endforeach
+                        </tr>    
+                    @endif
                 </tbody>
             </table>
             <div class="mt-3">
