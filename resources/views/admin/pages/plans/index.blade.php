@@ -46,7 +46,7 @@
                         <th>Nome</th>
                         <th width="100">Preço</th>
                         <th width="100">Criado</th>
-                        <th width="190">Ações</th>
+                        <th width="210">Ações</th>
                     </tr>                    
                 </thead>
                 <tbody>
@@ -60,13 +60,14 @@
                                     <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning btn-sm">Ver</a>
                                     <a href="{{ route('plans.edit', $plan->url)}}" class="btn btn-info btn-sm">Editar</a>
                                     <a href="{{ route('details.plan.index', $plan->url)}}" class="btn btn-secondary btn-sm">Detalhes</a>
+                                    <a href="{{ route('plans.profiles', $plan->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-address-book"></i></a>
                                 </td>
                             </tr>
                         @endforeach
                     @else                       
                         <tr>
                             <td colspan="5">
-                                <p class="mt-2 text-red">Não existem planos cadastrados.</p>
+                                <p class="mt-2 text-red">Não existem itens para serem listados</p>
                             </td>
                         </tr>    
                     @endif    
@@ -77,8 +78,7 @@
                     {!! $plans->appends($filters)->links() !!}
                 @else
                     {!! $plans->links() !!}                    
-                @endif
-                
+                @endif                
             </div>           
        </div>
    </div>

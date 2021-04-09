@@ -62,7 +62,7 @@
                     @else
                         <tr>
                             <td colspan="5">
-                                <p class="mt-2 text-red">Nenhum perfil está associado a permissão.</p>
+                                <p class="mt-2 text-red">Não existem itens para serem listados</p>
                             </td>
                         </tr>    
                     @endif
