@@ -21,13 +21,13 @@
                         </div>
                         <ul>
                         @foreach ($plan->details as $detail)
-                        <li>{{ $detail->name}}</li>
+                            <li>{{ $detail->name}}</li>
                         @endforeach
                         </ul>                   
                     </div>
                 </div>
                 <div class="pricingTable-signup">
-                    <a href="#">Assinar</a>
+                    <a href="{{ route('plan.subscription', $plan->url) }}">Assinar</a>
                 </div>
             </div>
         </div><!--Plan end-->
