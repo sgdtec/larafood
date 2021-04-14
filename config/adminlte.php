@@ -244,6 +244,11 @@ return [
             'url'  => 'admin/permissions',
             'icon' => 'nav-icon fas fa-lock'
         ],
+        [
+            'text' => 'Usuários',
+            'url'  => 'admin/users',
+            'icon' => 'nav-icon far fa-user'
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
