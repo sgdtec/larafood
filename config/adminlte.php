@@ -249,6 +249,11 @@ return [
             'url'  => 'admin/users',
             'icon' => 'nav-icon far fa-user'
         ],
+        [
+            'text' => 'Categorias',
+            'url'  => 'admin/categories',
+            'icon' => 'nav-icon fas fa-layer-group'
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
