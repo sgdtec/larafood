@@ -254,6 +254,11 @@ return [
             'url'  => 'admin/categories',
             'icon' => 'nav-icon fas fa-layer-group'
         ],
+        [
+            'text' => 'Produtos',
+            'url'  => 'admin/products',
+            'icon' => 'nav-icon fas fa-hamburger'
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
