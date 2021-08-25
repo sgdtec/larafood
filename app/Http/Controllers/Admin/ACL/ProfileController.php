@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\ACL;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreUpdateProfile;
 
 class ProfileController extends Controller
@@ -13,7 +14,8 @@ class ProfileController extends Controller
 
     public function __construct(Profile $profile) 
     {
-        $this->model = $profile;        
+        $this->model = $profile; 
+        $this->middleware(['can:profiles']);       
     }
     /**
      * Display a listing of the resource.
@@ -23,6 +25,7 @@ class ProfileController extends Controller
     public function index()
     {
         $profiles = $this->model->paginate();
+
 
         return view('admin.pages.profiles.index', [
             'profiles' => $profiles

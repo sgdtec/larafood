@@ -16,6 +16,7 @@ class DetailPlanController extends Controller
     public function __construct(DetailPlan $detailPlan, Plan $plan) {
         $this->model = $detailPlan;
         $this->plan = $plan;
+        $this->middleware(['can:plans']);
     }
 
     public function index($urlPlan) {

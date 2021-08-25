@@ -232,32 +232,56 @@ return [
         [
             'text' => 'Planos',
             'url'  => 'admin/plans',
-            'icon' => 'nav-icon far fa-list-alt'
+            'icon' => 'nav-icon far fa-list-alt',
+            'can'  => 'plans'
+        ],
+        [
+            'text' => 'Empresas',
+            'url'  => 'admin/tenants',
+            'icon' => 'nav-icon fas fa-building',
+            'can'  => 'tenants'
         ],
         [
             'text' => 'Perfil',
             'url'  => 'admin/profiles',
-            'icon' => 'nav-icon fas fa-address-book'
+            'icon' => 'nav-icon fas fa-address-book',
+            'can'  => 'profiles'
+        ],
+        [
+            'text' => 'Cargos',
+            'url'  => 'admin/roles',
+            'icon' => 'nav-icon fas fa-address-card',
+            'can'  => 'roles'
         ],
         [
             'text' => 'Permissões',
             'url'  => 'admin/permissions',
-            'icon' => 'nav-icon fas fa-lock'
+            'icon' => 'nav-icon fas fa-lock',
+            'can'  => 'permissions'
         ],
         [
             'text' => 'Usuários',
             'url'  => 'admin/users',
-            'icon' => 'nav-icon far fa-user'
+            'icon' => 'nav-icon far fa-user',
+            'can'  => 'users'
         ],
         [
             'text' => 'Categorias',
             'url'  => 'admin/categories',
-            'icon' => 'nav-icon fas fa-layer-group'
+            'icon' => 'nav-icon fas fa-layer-group',
+            'can'  => 'categories'
         ],
         [
             'text' => 'Produtos',
             'url'  => 'admin/products',
-            'icon' => 'nav-icon fas fa-hamburger'
+            'icon' => 'nav-icon fas fa-hamburger',
+            'can'  => 'products'
+        ],
+        [
+            'text' => 'Mesas',
+            'url'  => 'admin/tables',
+            'icon' => 'nav-icon fas fa-tablet',
+            'can'  => 'tables'
         ],
         ['header' => 'account_settings'],
         [

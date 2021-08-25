@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\Table;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateCategory;
+use App\Http\Requests\StoreUpdateTable;
 
-class CategoryController extends Controller
+class tableController extends Controller
 {
     private $model;
 
-    public function __construct(Category $category)
+    public function __construct(Table $table)
     {
-        $this->model = $category;
-        $this->middleware(['can:categories']);
+        $this->model = $table;
+        $this->middleware(['can:tables']);
         
     }
     /**
@@ -24,9 +24,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->model->latest()->paginate();
+        $tables = $this->model->latest()->paginate();
 
-        return view('admin.pages.categories.index', compact('categories'));
+        return view('admin.pages.tables.index', compact('tables'));
     }
 
     /**
@@ -36,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.categories.create');
+        return view('admin.pages.tables.create');
     }
 
     /**
@@ -45,12 +45,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(StoreUpdateCategory $request) {
+     public function store(StoreUpdateTable $request) {
 
         $this->model->create($request->all());
 
-        return redirect()->route('categories.index')
-                         ->with('success', 'Categoria criada com sucesso!');
+        return redirect()->route('tables.index')
+                         ->with('success', 'Mesa criada com sucesso!');
     }
 
     /**
@@ -61,11 +61,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        if (!$category = $this->model->find($id)) {
+        if (!$table = $this->model->find($id)) {
             return redirect()->back();
         }
 
-        return view('admin.pages.categories.show', compact('category'));
+        return view('admin.pages.tables.show', compact('table'));
     }
 
     /**
@@ -76,29 +76,29 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        if (!$category = $this->model->find($id)) {
+        if (!$table = $this->model->find($id)) {
             return redirect()->back();
         }
 
-        return view('admin.pages.categories.edit', compact('category'));
+        return view('admin.pages.tables.edit', compact('table'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\StoreUpdateCategory  $request
+     * @param  \Illuminate\Http\StoreUpdateTable  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateCategory $request, $id)
+    public function update(StoreUpdateTable $request, $id)
     {
-        if (!$category = $this->model->find($id)) {
+        if (!$table = $this->model->find($id)) {
             return redirect()->back();
         }
 
-        $category->update($request->all());
+        $table->update($request->all());
 
-        return redirect()->route('categories.index')
+        return redirect()->route('tables.index')
                          ->with('success', 'Dados gravados com sucesso!!!');
     }
 
@@ -110,17 +110,17 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        if (!$category = $this->model->find($id)) {
+        if (!$table = $this->model->find($id)) {
             return redirect()->back();
         }
 
-        $category->delete();
+        $table->delete();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('tables.index');
     }
 
     /**
-     * Search Results Categories.
+     * Search Results tables.
      *
      * @param  Request $request
      * @return \Illuminate\Http\Response
@@ -129,17 +129,17 @@ class CategoryController extends Controller
     {
         $filters = $request->only('filter');
 
-        $categories = $this->model->where(function($query) use ($request) {
+        $tables = $this->model->where(function($query) use ($request) {
                         if ($request->filter) {
-                            $query->orWhere('name', $request->filter);
                             $query->orWhere('description', 'LIKE', "%{$request->filter}%");
+                            $query->orWhere('identify', $request->filter);
                         }
                     })
                     ->latest()
                     ->paginate();
 
-        return view('admin.pages.categories.index', [
-            'categories' => $categories,
+        return view('admin.pages.tables.index', [
+            'tables' => $tables,
             'filters'  => $filters
         ]);
     }

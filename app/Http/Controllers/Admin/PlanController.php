@@ -13,7 +13,8 @@ class PlanController extends Controller
 
     public function __construct(Plan $plan)
     {
-        $this->model = $plan;      
+        $this->model = $plan;  
+        $this->middleware(['can:plans']);    
     }
 
     public function index() {

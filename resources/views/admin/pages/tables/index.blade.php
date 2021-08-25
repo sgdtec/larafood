@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Produtos')
+@section('title', 'Mesas')
 
 @section('content_header')
     <nav class="mb-2">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Produtos</li>
+            <li class="breadcrumb-item active">Mesas</li>
         </ol>
     </nav>
 
     <h1>
-        <i class="fas fa-hamburger"></i>
-        Produtos
+        <i class="fas fa-tablet"></i>
+        Mesas
     </h1>       
 @stop
 
@@ -23,7 +23,7 @@
            <div class="row">
                <div class="col-6">
                     <div class="form-group">
-                        <form action="{{ route('products.search') }}" class="form form-inline" method="POST">
+                        <form action="{{ route('tables.search') }}" class="form form-inline" method="POST">
                             @csrf
                              <div class="form-group">
                                <input type="text" 
@@ -36,7 +36,7 @@
                     </div>
                </div>
                <div class="col-6">
-                   <a href="{{ route('products.create') }}" class="btn btn-info btn-sm float-right"><i class="fas fa-plus"></i> Novo Produto</a>
+                   <a href="{{ route('tables.create') }}" class="btn btn-info btn-sm float-right"><i class="fas fa-plus"></i> Nova Mesa</a>
                </div>               
            </div>            
        </div>
@@ -44,34 +44,27 @@
             <table class="table table-bordered table-striped table-hover table-sm">
                 <thead class="thead-light">
                     <tr>
-                        <th>Imagem</th>
-                        <th>Titulo</th>
-                        <th>Preço</th>
-                        <th width="150">Ações</th>
+                        <th>Nome</th>
+                        <th>Description</th>
+                        <th width="120">Ações</th>
                     </tr>                    
                 </thead>
                 <tbody>
-                    @if (count($products) > 0)
-                        @foreach ($products as $product)
+                    @if (count($tables) > 0)
+                        @foreach ($tables as $table)
                             <tr>
+                                <td>{{ $table->identify }}</td>
+                                <td>{{ $table->description }}</td>
                                 <td>
-                                    <img src="{{ asset("storage/{$product->image}") }}" 
-                                    alt="{{$product->title}}"
-                                    style="max-width:80px;">
-                                </td>
-                                <td>{{ $product->title }}</td>
-                                <td>R$ {{ number_format($product->price,2,',', '.') }}</td>
-                                <td>
-                                    <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning btn-sm" title="Categorias"><i class="fas fa-layer-group"></i></a>
-                                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning btn-sm">Ver</a>
-                                    <a href="{{ route('products.edit', $product->id)}}" class="btn btn-info btn-sm">Editar</a>
+                                    <a href="{{ route('tables.show', $table->id) }}" class="btn btn-warning btn-sm">Ver</a>
+                                    <a href="{{ route('tables.edit', $table->id)}}" class="btn btn-info btn-sm">Editar</a>
                                 </td>
                             </tr>
                         @endforeach
                     @else                       
                         <tr>
                             <td colspan="5">
-                                <p class="mt-2 text-red">Não existem produtos para serem listados</p>
+                                <p class="mt-2 text-red">Não existem Mesas para serem listadas</p>
                             </td>
                         </tr>    
                     @endif    
@@ -79,9 +72,9 @@
             </table>
             <div class="mt-3">
                 @if (isset($filters))
-                    {!! $products->appends($filters)->links() !!}
+                    {!! $tables->appends($filters)->links() !!}
                 @else
-                    {!! $products->links() !!}                    
+                    {!! $tables->links() !!}                    
                 @endif                
             </div>
         </div>
