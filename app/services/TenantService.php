@@ -3,11 +3,31 @@
 namespace App\Services;
 
 use App\Models\Plan;
+use App\Repositories\Contracts\TenantRepositoryInterface;
 
 class TenantService {
 
     private $plan;
     private $data = [];
+    private $repository;
+
+    public function __construct(TenantRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * Return Tenant for Uuid
+     */
+    public function getTenantByUuid(string $uuid)
+    {
+        return $this->repository->getTenantByUuid($uuid);
+    }
+
+    public function getAllTenants(int $per_page)
+    {
+        return $this->repository->getAllTenants($per_page);
+    }
 
     public function make( Plan $plan, array $data) {
         $this->plan = $plan;
@@ -15,9 +35,7 @@ class TenantService {
 
         $tenant = $this->storeTenant();
 
-        return $user = $this->storeUser($tenant);  
-        
-      //  return $user;
+        return $user = $this->storeUser($tenant);
     }
 
     public function storeTenant() {
